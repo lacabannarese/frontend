@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cabaña - Recetas</title>
+    <link rel="stylesheet" href="css/estilofi.css">
+</head>
+<body>
+
+<!--Cabecera estandarizada-->
+    <header>
+        <div class="header-left">
+            <img src="./img/dis.png" alt="Logo corazón" class="logo-small" id="Admin">
+        </div>
+
+        <div class="header-title">
+            <h1>Recetas</h1>
+            <img src="img/animacion1.gif" alt="Logo receta" class="logo-cabana">
+        </div>
+    </header>
+
+<!-- BOTÓN HAMBURGUESA -->
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+<!--Barra de navegación estandarizada-->
+    <nav>
+        <!-- Botón de iniciar sesión a la izquierda -->
+        <a href="login.html" class="login">Iniciar sesión | Registrarse</a>
+        
+        <!-- Opciones centradas -->
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Desayunos.html">Desayunos</a></li>
+            <li><a href="Almuerzos.html">Almuerzos</a></li>
+            <li><a href="Cenas.html">Cenas</a></li>
+            <li><a href="Postres.html">Postres</a></li>
+            <li><a href="ia.html">Receta con IA</a></li>
+            <li><a href="CrearReceta.html" id="CrearReceta">Crear receta</a></li>
+                <a href="tienda.html" target="_blank" class="store-link">
+                    <img src="img/animacion2.gif" alt="Tienda" class="store-icon">
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+<!--Contenido principal-->
+    <main>
+        <section class="hero">
+            <img src="img/recetsa.jpg" alt="Comida saludable">
+            <div class="hero-text">
+                <h1 class="white">El arte de una vida buena, sana y saludable</h1>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA REDISEÑADO -->
+    <footer class="footer-lacabana">
+        <div class="footer-container-main">
+            <!-- Columna 1: Acerca de Nosotros -->
+            <div class="footer-col">
+                <h3>Acerca de Nosotros</h3>
+                <p>La Cabaña es tu espacio para descubrir recetas saludables y deliciosas. Nos apasiona compartir el amor por la comida nutritiva y ayudarte a vivir un estilo de vida más saludable.</p>
+                <img src="./img/cabañna.png" alt="Logo La Cabaña" class="footer-logo-main">
+            </div>
+
+            <!-- Columna 2: Enlaces Útiles -->
+            <div class="footer-col">
+                <h3>Enlaces Útiles</h3>
+                <ul class="footer-menu-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="Recetas.html">Recetas</a></li>
+                    <li><a href="Blogconsejos.html">Blog de Consejos</a></li>
+                    <li><a href="tusrecetas.html">Tus Recetas</a></li>
+                    <li><a href="RecetasPublicadas.html">Recetas Publicadas</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Contacto -->
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <ul class="footer-contact-list">
+                    <li>
+                        <span>📧</span>
+                        <a href="mailto:lacabannarese@gmail.com">lacabannarese@gmail.com</a>
+                    </li>
+                    <li>
+                        <span>📱</span>
+                        <a href="tel:+522228060935">+52 222 806 0935</a>
+                    </li>
+                    <li>
+                        <span>📍</span>
+                        <span>Huajuapan, Oaxaca, México</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Columna 4: Síguenos -->
+            <div class="footer-col">
+                <h3>Síguenos</h3>
+                <div class="footer-social-wrapper">
+                    <a href="https://www.facebook.com/share/1AzewmxcDW/" class="footer-social-link" aria-label="Facebook">
+                        <img src="./img/facebook.png" alt="Facebook" style="width:45px!important;height:45px!important;max-width:45px!important;max-height:45px!important;">
+                    </a>
+                    <a href="https://www.instagram.com/la_cabana._.food?igsh=MTkzZTFlbDMxdWxkbg==" class="footer-social-link" aria-label="Instagram">
+                        <img src="./img/instagram.png" alt="Instagram" style="width:45px!important;height:45px!important;max-width:45px!important;max-height:45px!important;">
+                    </a>
+                    <a href="https://x.com/LaCabaa175607?t=_HEiujz99A590t0oTAxhuQ&s=08" class="footer-social-link" aria-label="Twitter">
+                        <img src="./img/twitter.png" alt="Twitter" style="width:45px!important;height:45px!important;max-width:45px!important;max-height:45px!important;">
+                    </a>
+                </div>
+                <div class="footer-newsletter">
+                    <strong>Newsletter</strong>
+                    <p>Suscríbete para recibir nuestras mejores recetas semanalmente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Línea divisoria -->
+        <div class="footer-divider"></div>
+
+        <!-- Parte inferior -->
+        <div class="footer-bottom">
+            <p class="footer-copyright">&copy; 2025 La Cabaña. Todos los derechos reservados.</p>
+            <div class="footer-legal">
+                <a href="#privacidad">Política de Privacidad</a>
+                <span>|</span>
+                <a href="#terminos">Términos y Condiciones</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/config.js"></script>
+    <!-- Script del menú hamburguesa -->
+    <script src="js/menu-toggle.js"></script>
+    <!-- Sistema de Autenticación -->
+    <script src="js/auth-session.js"></script>
+    <script src="js/sesionIniciada.js"></script>
+    <script src="js/loginAdmin.js"></script>
+</body>
+</html>

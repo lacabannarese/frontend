@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cabaña - Cenas</title>
+    <link rel="stylesheet" href="css/estilofi.css">
+</head>
+<body>
+
+<!--Cabecera estandarizada-->
+    <header>
+        <div class="header-left">
+            <img src="./img/dis.png" alt="Logo corazón" class="logo-small" id="Admin">
+        </div>
+
+        <div class="header-title">
+            <img src="img/animacion6.gif" alt="Logo cabañita" class="logo-cabana">
+            <h1>Cenas</h1>
+            <img src="img/log4.png" alt="Logo cabañita" class="logo-cabana">
+        </div>
+    </header>
+    
+<!-- BOTÓN HAMBURGUESA -->
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+<!--Barra de navegación estandarizada-->
+    <nav>
+        <!-- Botón de iniciar sesión a la izquierda -->
+        <a href="login.html" class="login">Iniciar sesión</a>
+        
+        <!-- Opciones centradas -->
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Recetas.html">Recetas</a></li>
+        </ul>
+        
+        <!-- Barra de búsqueda a la derecha -->
+        <div class="search-box">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" id="search-input" placeholder="Buscar recetas de cenas...">
+            <button type="button" id="clear-search" aria-label="Limpiar búsqueda">×</button>
+        </div>
+    </nav>
+
+<!--Contenido principal-->
+    <main>
+        <div class="content-container">
+            <section id="recetas-publicadas" class="menu-screen active">
+                <div id="publicadas-grid" class="menu-grid" data-tipo="Cena">
+                    <!-- Las recetas publicadas se inyectarán aquí por JS -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+<!-- Modal -->
+<div id="modalReceta" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar">&times;</span>
+        <h2 id="tituloReceta"></h2>
+        <p id="descripcionReceta"></p>
+    </div>
+</div>
+
+<!-- PIE DE PÁGINA REDISEÑADO -->
+    <footer class="footer-lacabana">
+        <div class="footer-container-main">
+            <!-- Columna 1: Acerca de Nosotros -->
+            <div class="footer-col">
+                <h3>Acerca de Nosotros</h3>
+                <p>La Cabaña es tu espacio para descubrir recetas saludables y deliciosas. Nos apasiona compartir el amor por la comida nutritiva y ayudarte a vivir un estilo de vida más saludable.</p>
+                <img src="./img/cabañna.png" alt="Logo La Cabaña" class="footer-logo-main">
+            </div>
+
+            <!-- Columna 2: Enlaces Útiles -->
+            <div class="footer-col">
+                <h3>Enlaces Útiles</h3>
+                <ul class="footer-menu-list">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="Recetas.html">Recetas</a></li>
+                    <li><a href="Blogconsejos.html">Blog de Consejos</a></li>
+                    <li><a href="tusrecetas.html">Tus Recetas</a></li>
+                    <li><a href="RecetasPublicadas.html">Recetas Publicadas</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Contacto -->
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <ul class="footer-contact-list">
+                    <li>
+                        <span>📧</span>
+                        <a href="mailto:lacabannarese@gmail.com">lacabannarese@gmail.com</a>
+                    </li>
+                    <li>
+                        <span>📱</span>
+                        <a href="tel:+522228060935">+52 222 806 0935</a>
+                    </li>
+                    <li>
+                        <span>📍</span>
+                        <span>Huajuapan, Oaxaca, México</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Columna 4: Síguenos -->
+            <div class="footer-col">
+                <h3>Síguenos</h3>
+                <div class="footer-social-wrapper">
+                    <a href="https://www.facebook.com/share/1AzewmxcDW/" class="footer-social-link" aria-label="Facebook">
+                        <img src="./img/facebook.png" alt="Facebook" style="width:45px!important;height:45px!important;max-width:45px!important;max-height:45px!important;">
+                    </a>
+                    <a href="https://www.instagram.com/la_cabana._.food?igsh=MTkzZTFlbDMxdWxkbg==" class="footer-social-link" aria-label="Instagram">
+                        <img src="./img/instagram.png" alt="Instagram" style="width:45px!important;height:45px!important;max-width:45px!important;max-height:45px!important;">
+                    </a>
+                    <a href="https://x.com/LaCabaa175607?t=_HEiujz99A590t0oTAxhuQ&s=08" class="footer-social-link" aria-label="Twitter">
+                        <img src="./img/twitter.png" alt="Twitter" style="width:45px!important;height:45px!important;max-width:45px!important;max-height:45px!important;">
+                    </a>
+                </div>
+                <div class="footer-newsletter">
+                    <strong>Newsletter</strong>
+                    <p>Suscríbete para recibir nuestras mejores recetas semanalmente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Línea divisoria -->
+        <div class="footer-divider"></div>
+
+        <!-- Parte inferior -->
+        <div class="footer-bottom">
+            <p class="footer-copyright">&copy; 2025 La Cabaña. Todos los derechos reservados.</p>
+            <div class="footer-legal">
+                <a href="#privacidad">Política de Privacidad</a>
+                <span>|</span>
+                <a href="#terminos">Términos y Condiciones</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/menu-toggle.js"></script>
+    <script src="js/loginAdmin.js"></script>
+    <script src="js/cargarReceta.js"></script>
+    <script src="js/Rating_system.js"></script>
+    <script src="js/favorito-system.js"></script>
+    <script src="js/search-system.js"></script>
+    <script src="js/auth-session.js"></script>
+    <script src="js/modal.js"></script>
+
+</body>
+</html>

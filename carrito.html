@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cabaña - Carrito de Compras</title>
+    <link rel="stylesheet" href="css/estilofi.css">
+</head>
+<body>
+
+<!--Cabecera estandarizada-->
+<header>
+    <div class="header-left">
+        <img src="img/dis.png" alt="Logo corazón" class="logo-small">
+    </div>
+
+    <div class="header-title">
+        <h1>Carrito de Compras</h1>
+        <img src="img/cabañna.png" alt="Logo cabañita" class="logo-cabana">
+    </div>
+
+    <div class="header-right">
+        <div class="social-media">
+            <a href="https://www.facebook.com/share/1AzewmxcDW/"><img src="./img/facebook.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/la_cabana._.food?igsh=MTkzZTFlbDMxdWxkbg=="><img src="./img/instagram.png" alt="Instagram"></a>
+            <a href="https://x.com/LaCabaa175607?t=_HEiujz99A590t0oTAxhuQ&s=08"><img src="./img/twitter.png" alt="Twitter"></a>
+        </div>
+    </div>
+
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+<!--Barra de navegación-->
+<nav>
+    <a href="login.html" class="login">Iniciar sesión | Registrarse</a>
+    
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="Recetas.html">Recetas</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+    </ul>
+</nav>
+
+<!--Contenido principal-->
+<main class="content-container" style="min-height: 70vh;">
+    
+    <!-- Indicador de carrito vacío -->
+    <div id="carrito-vacio" class="carrito-vacio" style="display: none;">
+        <div class="empty-cart-icon">🛒</div>
+        <h2>Tu carrito está vacío</h2>
+        <p>¡Agrega algunos productos deliciosos desde nuestra tienda!</p>
+        <a href="tienda.html" class="button" style="display: inline-block; margin-top: 20px;">
+            🛍️ Ir a la Tienda
+        </a>
+    </div>
+
+    <!-- Contenido del carrito -->
+    <div id="carrito-contenido" style="display: none;">
+        
+        <!-- Título -->
+        <div class="carrito-header">
+            <h2>🛒 Tu Carrito de Compras</h2>
+            <span class="items-count" id="items-count">0 productos</span>
+        </div>
+
+        <!-- Grid de productos y resumen -->
+        <div class="carrito-grid">
+            
+            <!-- Lista de productos -->
+            <div class="carrito-productos">
+                <div class="productos-lista" id="productos-lista">
+                    <!-- Los productos se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+
+            <!-- Resumen de compra -->
+            <div class="carrito-resumen">
+                <div class="resumen-card">
+                    <h3>📋 Resumen de Compra</h3>
+                    
+                    <div class="resumen-linea">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    
+                    <div class="resumen-linea">
+                        <span>Envío:</span>
+                        <span id="envio">$50.00</span>
+                    </div>
+                    
+                    <div class="resumen-linea">
+                        <span>IVA (16%):</span>
+                        <span id="iva">$0.00</span>
+                    </div>
+                    
+                    <div class="resumen-divider"></div>
+                    
+                    <div class="resumen-total">
+                        <span>Total:</span>
+                        <span id="total">$0.00</span>
+                    </div>
+
+                    <button class="btn-pagar" id="btn-pagar">
+                        💳 Proceder al Pago
+                    </button>
+
+                    <button class="btn-seguir-comprando" onclick="window.location.href='tienda.html'">
+                        🛍️ Seguir Comprando
+                    </button>
+
+                    <div class="metodos-pago">
+                        <p style="font-size: 0.85em; color: #666; margin-top: 15px; text-align: center;">
+                            Aceptamos:
+                        </p>
+                        <div class="payment-icons">
+                            <span>💳</span>
+                            <span>🏦</span>
+                            <span>📱</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cupón de descuento -->
+                <div class="cupon-card">
+                    <h4>🎟️ ¿Tienes un cupón?</h4>
+                    <div class="cupon-input-group">
+                        <input type="text" id="cupon-input" placeholder="Código de cupón">
+                        <button class="btn-aplicar-cupon" id="btn-aplicar-cupon">Aplicar</button>
+                    </div>
+                    <div id="cupon-mensaje" class="cupon-mensaje"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<!-- PIE DE PÁGINA -->
+<footer class="footer-lacabana">
+    <div class="footer-container-main">
+        <div class="footer-col">
+            <h3>Acerca de Nosotros</h3>
+            <p>La Cabaña es tu espacio para descubrir recetas saludables y deliciosas.</p>
+            <img src="./img/cabañna.png" alt="Logo La Cabaña" class="footer-logo-main">
+        </div>
+
+        <div class="footer-col">
+            <h3>Enlaces Útiles</h3>
+            <ul class="footer-menu-list">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Recetas.html">Recetas</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Contacto</h3>
+            <ul class="footer-contact-list">
+                <li><span>📧</span><a href="mailto:lacabannarese@gmail.com">lacabannarese@gmail.com</a></li>
+                <li><span>📱</span><a href="tel:+522228060935">+52 222 806 0935</a></li>
+                <li><span>📍</span><span>Huajuapan, Oaxaca, México</span></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Síguenos</h3>
+            <div class="footer-social-wrapper">
+                <a href="https://www.facebook.com/share/1AzewmxcDW/" class="footer-social-link"><img src="./img/facebook.png" alt="Facebook"></a>
+                <a href="https://www.instagram.com/la_cabana._.food?igsh=MTkzZTFlbDMxdWxkbg==" class="footer-social-link"><img src="./img/instagram.png" alt="Instagram"></a>
+                <a href="https://x.com/LaCabaa175607?t=_HEiujz99A590t0oTAxhuQ&s=08" class="footer-social-link"><img src="./img/twitter.png" alt="Twitter"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 La Cabaña. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/menu-toggle.js"></script>
+<script src="js/auth-session.js"></script>
+<script src="js/carrito.js"></script>
+
+</body>
+</html>

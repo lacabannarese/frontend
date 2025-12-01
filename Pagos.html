@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cabaña - Panel de Cobros</title>
+    <link rel="stylesheet" href="css/estilofi.css">
+</head>
+<body>
+
+<!--Cabecera estandarizada-->
+<header>
+    <div class="header-left">
+        <img src="img/dis.png" alt="Logo corazón" class="logo-small" id="Admin">
+    </div>
+
+    <div class="header-title">
+        <h1>Panel de Cobros</h1>
+        <img src="img/cabañna.png" alt="Logo cabañita" class="logo-cabana">
+    </div>
+
+    <div class="header-right">
+        <div class="social-media">
+            <a href="https://www.facebook.com/share/1AzewmxcDW/"><img src="./img/facebook.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/la_cabana._.food?igsh=MTkzZTFlbDMxdWxkbg=="><img src="./img/instagram.png" alt="Instagram"></a>
+            <a href="https://x.com/LaCabaa175607?t=_HEiujz99A590t0oTAxhuQ&s=08"><img src="./img/twitter.png" alt="Twitter"></a>
+        </div>
+    </div>
+
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+<!--Barra de navegación-->
+<nav>
+    <a href="login.html" class="login">Cerrar Sesión</a>
+    
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="admin.html">Panel Admin</a></li>
+        <li><a href="tienda.html">Tienda</a></li>
+    </ul>
+</nav>
+
+<!--Contenido principal-->
+<main class="admin-container">
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-menu-item active">
+            <span class="admin-menu-icon">💳</span>
+            <span>Cobros</span>
+        </div>
+        <div class="admin-menu-item">
+            <span class="admin-menu-icon">📊</span>
+            <span>Estadísticas</span>
+        </div>
+        <div class="admin-menu-item">
+            <span class="admin-menu-icon">🛒</span>
+            <span>Productos</span>
+        </div>
+        <div class="admin-menu-item">
+            <span class="admin-menu-icon">👥</span>
+            <span>Clientes</span>
+        </div>
+        <div class="admin-menu-item">
+            <span class="admin-menu-icon">⚙️</span>
+            <span>Configuración</span>
+        </div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <section class="admin-main-content">
+        
+        <!-- Header de la sección -->
+        <div class="admin-section-header">
+            <h2>💳 Gestión de Cobros con Stripe</h2>
+            <p>Visualiza y administra todos los pagos recibidos en tu tienda</p>
+        </div>
+
+        <!-- Tarjetas de estadísticas -->
+        <div class="admin-stats-grid">
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon color1">💰</div>
+                <div class="admin-stat-info">
+                    <h3 id="total-ventas">$0.00</h3>
+                    <p>Total Ventas</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon color2">✅</div>
+                <div class="admin-stat-info">
+                    <h3 id="cobros-exitosos">0</h3>
+                    <p>Cobros Exitosos</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon color3">⏳</div>
+                <div class="admin-stat-info">
+                    <h3 id="cobros-pendientes">0</h3>
+                    <p>Pendientes</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon color4">❌</div>
+                <div class="admin-stat-info">
+                    <h3 id="cobros-fallidos">0</h3>
+                    <p>Fallidos</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros y búsqueda -->
+        <div class="admin-table-container">
+            <div class="admin-table-header">
+                <h3>📋 Historial de Cobros</h3>
+                <div class="admin-search-box">
+                    <input type="text" id="search-cobros" placeholder="Buscar por cliente, email o ID...">
+                    <select id="filter-status" style="padding: 12px; border-radius: 25px; border: 2px solid var(--color-acento); margin-left: 10px;">
+                        <option value="all">Todos los estados</option>
+                        <option value="succeeded">Exitosos</option>
+                        <option value="pending">Pendientes</option>
+                        <option value="failed">Fallidos</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tabla de cobros -->
+            <div style="overflow-x: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID Transacción</th>
+                            <th>Cliente</th>
+                            <th>Email</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                            <th>Método de Pago</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cobros-table-body">
+                        <!-- Los datos se cargarán dinámicamente desde Stripe -->
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 40px;">
+                                <div class="loading-spinner">⏳ Cargando cobros desde Stripe...</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginación -->
+            <div class="admin-pagination" style="display: flex; justify-content: center; align-items: center; gap: 15px; padding: 20px; margin-top: 20px;">
+                <button class="admin-btn admin-btn-secondary admin-btn-small" id="prev-page">← Anterior</button>
+                <span id="page-info" style="font-weight: bold; color: var(--color-principal);">Página 1</span>
+                <button class="admin-btn admin-btn-secondary admin-btn-small" id="next-page">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- Sección de detalles del cobro (modal) -->
+        <div class="admin-modal" id="cobro-detail-modal">
+            <div class="admin-modal-content">
+                <div class="admin-modal-header">
+                    <h3>💳 Detalles del Cobro</h3>
+                    <span class="admin-close-modal" id="close-modal">×</span>
+                </div>
+                <div id="cobro-details-content">
+                    <!-- Los detalles se cargarán dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- PIE DE PÁGINA -->
+<footer class="footer-lacabana">
+    <div class="footer-container-main">
+        <div class="footer-col">
+            <h3>Acerca de Nosotros</h3>
+            <p>La Cabaña es tu espacio para descubrir recetas saludables y deliciosas.</p>
+            <img src="./img/cabañna.png" alt="Logo La Cabaña" class="footer-logo-main">
+        </div>
+
+        <div class="footer-col">
+            <h3>Enlaces Útiles</h3>
+            <ul class="footer-menu-list">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Recetas.html">Recetas</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Contacto</h3>
+            <ul class="footer-contact-list">
+                <li><span>📧</span><a href="mailto:lacabannarese@gmail.com">lacabannarese@gmail.com</a></li>
+                <li><span>📱</span><a href="tel:+522228060935">+52 222 806 0935</a></li>
+                <li><span>📍</span><span>Huajuapan, Oaxaca, México</span></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Síguenos</h3>
+            <div class="footer-social-wrapper">
+                <a href="https://www.facebook.com/share/1AzewmxcDW/" class="footer-social-link"><img src="./img/facebook.png" alt="Facebook"></a>
+                <a href="https://www.instagram.com/la_cabana._.food?igsh=MTkzZTFlbDMxdWxkbg==" class="footer-social-link"><img src="./img/instagram.png" alt="Instagram"></a>
+                <a href="https://x.com/LaCabaa175607?t=_HEiujz99A590t0oTAxhuQ&s=08" class="footer-social-link"><img src="./img/twitter.png" alt="Twitter"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 La Cabaña. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/menu-toggle.js"></script>
+<script src="js/stripe-cobros.js"></script>
+
+</body>
+</html>

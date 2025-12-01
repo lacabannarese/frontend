@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cabaña - Postres</title>
+    <link rel="stylesheet" href="css/estilofi.css">
+</head>
+<body>
+
+<!--Cabecera estandarizada-->
+    <header>
+        <div class="header-left">
+            <img src="./img/dis.png" alt="Logo corazón" class="logo-small" id="Admin">
+        </div>
+
+        <div class="header-title">
+            <img src="img/animacion6.gif" alt="Logo cabañita" class="logo-cabana">
+            <h1>Postres</h1>
+            <img src="img/post2.png" alt="Logo cabañita" class="logo-cabana">
+        </div>
+    </header>
+
+    <!-- BOTÓN HAMBURGUESA -->
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+<!--Barra de navegación estandarizada-->
+    <nav>
+        <!-- Botón de iniciar sesión a la izquierda -->
+        <a href="login.html" class="login">Iniciar sesión</a>
+        
+        <!-- Opciones centradas -->
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Recetas.html">Recetas</a></li>
+        </ul>
+        
+        <!-- Barra de búsqueda a la derecha -->
+        <div class="search-box">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" id="search-input" placeholder="Buscar postres...">
+            <button type="button" id="clear-search" aria-label="Limpiar búsqueda">×</button>
+        </div>
+    </nav>
+
+<!--Contenido principal-->
+    <main>
+        <div class="content-container">
+            <section id="recetas-publicadas" class="menu-screen active">
+                <div id="publicadas-grid" class="menu-grid" data-tipo="Postre">
+                    <!-- Las recetas publicadas se inyectarán aquí por JS -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal -->
+<div id="modalReceta" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar">&times;</span>
+        <h2 id="tituloReceta"></h2>
+        <p id="descripcionReceta"></p>
+    </div>
+</div>
+
+    <script src="js/config.js"></script>
+    <script src="js/menu-toggle.js"></script>
+    <script src="js/loginAdmin.js"></script>
+    <script src="js/cargarReceta.js"></script>
+    <script src="js/Rating_system.js"></script>
+    <script src="js/favorito-system.js"></script>
+    <script src="js/search-system.js"></script>
+    <script src="js/auth-session.js"></script>
+    <script src="js/modal.js"></script>
+
+</body>
+</html>

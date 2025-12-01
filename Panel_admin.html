@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - La Cabaña</title>
+    <!-- Estilos principales de La Cabaña -->
+    <link rel="stylesheet" href="css/estilofi.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <img src="./img/dis.png" alt="Logo corazón" class="logo-small" id="regresaraindex">
+        </div>
+
+        <div class="header-title">
+            <h1>La Cabaña - Panel Admin</h1>
+            <img src="./img/cabañna.png" alt="Logo cabañita" class="logo-cabana">
+        </div>
+
+        <div class="admin-user-info">
+            <span>Administrador</span>
+            <div class="admin-user-avatar">A</div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <div class="admin-menu-item active" onclick="showSection('dashboard')">
+                <span class="admin-menu-icon">📊</span>
+                <span>Dashboard</span>
+            </div>
+            <div class="admin-menu-item" onclick="showSection('recetas')">
+                <span class="admin-menu-icon">🍲</span>
+                <span>Gestionar Recetas</span>
+            </div>
+            <div class="admin-menu-item" onclick="showSection('categorias')">
+                <span class="admin-menu-icon">📁</span>
+                <span>Categorías</span>
+            </div>
+            <div class="admin-menu-item" onclick="showSection('blog')">
+                <span class="admin-menu-icon">📝</span>
+                <span>Blog</span>
+            </div>
+            <div class="admin-menu-item" onclick="showSection('usuarios')">
+                <span class="admin-menu-icon">👥</span>
+                <span>Usuarios</span>
+            </div>
+            <div class="admin-menu-item" onclick="showSection('comentarios')">
+                <span class="admin-menu-icon">💬</span>
+                <span>Comentarios</span>
+            </div>
+            <div class="admin-menu-item" onclick="showSection('estadisticas')">
+                <span class="admin-menu-icon">📈</span>
+                <span>Estadísticas</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-main-content">
+            <div id="admin-alert-container"></div>
+
+            <!-- Dashboard -->
+            <div id="dashboard" class="admin-content-section active">
+                <div class="admin-section-header">
+                    <h2>Dashboard</h2>
+                    <p>Resumen general del sistema La Cabaña</p>
+                </div>
+
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon color1">🍲</div>
+                        <div class="admin-stat-info">
+                            <h3 id="total-recetas">0</h3>
+                            <p>Recetas Totales</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon color2">👥</div>
+                        <div class="admin-stat-info">
+                            <h3 id="total-usuarios">0</h3>
+                            <p>Usuarios Registrados</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon color3">📝</div>
+                        <div class="admin-stat-info">
+                            <h3 id="total-blog">0</h3>
+                            <p>Publicaciones Blog</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon color4">💬</div>
+                        <div class="admin-stat-info">
+                            <h3 id="total-comentarios">0</h3>
+                            <p>Comentarios</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-chart-container">
+                    <h3>Registro de Actividad</h3>
+                    <div id="log-container">
+                        <!-- Log entries will be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gestionar Recetas -->
+            <div id="recetas" class="admin-content-section">
+                <div class="admin-section-header">
+                    <h2>Gestionar Recetas</h2>
+                    <p>Crear, editar y eliminar recetas del sistema</p>
+                </div>
+
+                <div class="admin-table-container">
+                    <div class="admin-table-header">
+                        <div class="admin-search-box">
+                            <input type="text" id="search-recetas" placeholder="🔍 Buscar recetas..." onkeyup="searchTable('recetas-table', this.value)">
+                        </div>
+                        <button class="admin-btn admin-btn-primary" onclick="openModal('modal-receta')">➕ Nueva Receta</button>
+                    </div>
+                    <table class="admin-table" id="recetas-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Categoría</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recetas-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Gestionar Categorías -->
+            <div id="categorias" class="admin-content-section">
+                <div class="admin-section-header">
+                    <h2>Gestionar Categorías</h2>
+                    <p>Administrar las categorías de recetas</p>
+                </div>
+
+                <div class="admin-table-container">
+                    <div class="admin-table-header">
+                        <h3>Categorías de Recetas</h3>
+                        <button class="admin-btn admin-btn-primary" onclick="openModal('modal-categoria')">➕ Nueva Categoría</button>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Recetas Asociadas</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categorias-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Gestionar Blog -->
+            <div id="blog" class="admin-content-section">
+                <div class="admin-section-header">
+                    <h2>Gestionar Blog</h2>
+                    <p>Publicaciones y artículos del blog de consejos</p>
+                </div>
+
+                <div class="admin-table-container">
+                    <div class="admin-table-header">
+                        <div class="admin-search-box">
+                            <input type="text" id="search-blog" placeholder="🔍 Buscar publicaciones..." onkeyup="searchTable('blog-table', this.value)">
+                        </div>
+                        <button class="admin-btn admin-btn-primary" onclick="openModal('modal-blog')">➕ Nueva Publicación</button>
+                    </div>
+                    <table class="admin-table" id="blog-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Autor</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blog-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Gestionar Usuarios -->
+            <div id="usuarios" class="admin-content-section">
+                <div class="admin-section-header">
+                    <h2>Gestionar Usuarios</h2>
+                    <p>Administrar cuentas y permisos de usuarios</p>
+                </div>
+
+                <div class="admin-table-container">
+                    <div class="admin-table-header">
+                        <div class="admin-search-box">
+                            <input type="text" id="search-usuarios" placeholder="🔍 Buscar usuarios..." onkeyup="searchTable('usuarios-table', this.value)">
+                        </div>
+                        <button class="admin-btn admin-btn-primary" onclick="openModal('modal-usuario')">➕ Nuevo Usuario</button>
+                    </div>
+                    <table class="admin-table" id="usuarios-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Moderación de Comentarios -->
+            <div id="comentarios" class="admin-content-section">
+                <div class="admin-section-header">
+                    <h2>Moderación de Comentarios</h2>
+                    <p>Revisar y moderar comentarios de usuarios</p>
+                </div>
+
+                <div class="admin-table-container">
+                    <div class="admin-table-header">
+                        <h3>Comentarios Pendientes de Moderación</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Contenido</th>
+                                <th>Receta/Blog</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comentarios-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Estadísticas -->
+            <div id="estadisticas" class="admin-content-section">
+                <div class="admin-section-header">
+                    <h2>Estadísticas del Sitio</h2>
+                    <p>Métricas y análisis del sistema La Cabaña</p>
+                </div>
+
+                <!-- Estadísticas eliminadas: no hay datos de vistas en la BD actual -->
+
+                <div class="admin-chart-container">
+                    <h3>Recetas Más Populares</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Receta</th>
+                                <th>Vistas</th>
+                                <th>Comentarios</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stats-recetas-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="admin-btn-group">
+                    <button class="admin-btn admin-btn-primary" onclick="exportarEstadisticas()">📥 Exportar Datos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Receta -->
+    <div id="modal-receta" class="admin-modal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3>Nueva Receta</h3>
+                <span class="admin-close-modal" onclick="closeModal('modal-receta')">&times;</span>
+            </div>
+            <form onsubmit="guardarReceta(event)">
+                <div class="admin-form-group">
+                    <label>Título de la Receta *</label>
+                    <input type="text" id="receta-titulo" required>
+                </div>
+                <div class="admin-form-group">
+                    <label>Categoría *</label>
+                    <select id="receta-categoria" required>
+                        <option value="">Seleccionar categoría</option>
+                    </select>
+                </div>
+                <div class="admin-form-group">
+                    <label>Ingredientes *</label>
+                    <textarea id="receta-ingredientes" required placeholder="Lista de ingredientes..."></textarea>
+                </div>
+                <div class="admin-form-group">
+                    <label>Instrucciones *</label>
+                    <textarea id="receta-instrucciones" required placeholder="Pasos para preparar la receta..."></textarea>
+                </div>
+                <div class="admin-form-group">
+                    <label>Tiempo de Preparación (minutos)</label>
+                    <input type="number" id="receta-tiempo" min="1">
+                </div>
+                <div class="admin-form-group">
+                    <label>Imagen de la Receta</label>
+                    <div class="admin-file-upload" onclick="document.getElementById('receta-imagen').click()">
+                        <input type="file" id="receta-imagen" accept="image/*" onchange="previewImage(event, 'receta-preview')">
+                        <p>📷 Click para subir imagen (JPG, PNG)</p>
+                        <img id="receta-preview" class="admin-image-preview" style="display: none;">
+                    </div>
+                </div>
+                <div class="admin-btn-group">
+                    <button type="submit" class="admin-btn admin-btn-primary">Guardar Receta</button>
+                    <button type="button" class="admin-btn admin-btn-secondary" onclick="closeModal('modal-receta')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Categoría -->
+    <div id="modal-categoria" class="admin-modal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3>Nueva Categoría</h3>
+                <span class="admin-close-modal" onclick="closeModal('modal-categoria')">&times;</span>
+            </div>
+            <form onsubmit="guardarCategoria(event)">
+                <div class="admin-form-group">
+                    <label>Nombre de la Categoría *</label>
+                    <input type="text" id="categoria-nombre" required>
+                </div>
+                <div class="admin-form-group">
+                    <label>Descripción</label>
+                    <textarea id="categoria-descripcion" placeholder="Descripción de la categoría..."></textarea>
+                </div>
+                <div class="admin-btn-group">
+                    <button type="submit" class="admin-btn admin-btn-primary">Guardar Categoría</button>
+                    <button type="button" class="admin-btn admin-btn-secondary" onclick="closeModal('modal-categoria')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Publicación Blog -->
+    <div id="modal-blog" class="admin-modal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3>Nueva Publicación</h3>
+                <span class="admin-close-modal" onclick="closeModal('modal-blog')">&times;</span>
+            </div>
+            <form onsubmit="guardarBlog(event)">
+                <div class="admin-form-group">
+                    <label>Título *</label>
+                    <input type="text" id="blog-titulo" required>
+                </div>
+                <div class="admin-form-group">
+                    <label>Contenido *</label>
+                    <textarea id="blog-contenido" required placeholder="Escribe el contenido del artículo..."></textarea>
+                </div>
+                <div class="admin-form-group">
+                    <label>Imagen Destacada</label>
+                    <div class="admin-file-upload" onclick="document.getElementById('blog-imagen').click()">
+                        <input type="file" id="blog-imagen" accept="image/*" onchange="previewImage(event, 'blog-preview')">
+                        <p>📷 Click para subir imagen</p>
+                        <img id="blog-preview" class="admin-image-preview" style="display: none;">
+                    </div>
+                </div>
+                <div class="admin-btn-group">
+                    <button type="submit" class="admin-btn admin-btn-primary">Publicar</button>
+                    <button type="button" class="admin-btn admin-btn-secondary" onclick="closeModal('modal-blog')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nuevo Usuario -->
+    <div id="modal-usuario" class="admin-modal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3>Nuevo Usuario</h3>
+                <span class="admin-close-modal" onclick="closeModal('modal-usuario')">&times;</span>
+            </div>
+            <form onsubmit="guardarUsuario(event)">
+                <div class="admin-form-group">
+                    <label>Nombre Completo *</label>
+                    <input type="text" id="usuario-nombre" required>
+                </div>
+                <div class="admin-form-group">
+                    <label>Email *</label>
+                    <input type="email" id="usuario-email" required>
+                </div>
+                <div class="admin-form-group">
+                    <label>Contraseña *</label>
+                    <input type="password" id="usuario-password" required minlength="8">
+                </div>
+                <div class="admin-form-group">
+                    <label>Rol *</label>
+                    <select id="usuario-rol" required>
+                        <option value="usuario">Usuario</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+                <div class="admin-btn-group">
+                    <button type="submit" class="admin-btn admin-btn-primary">Crear Usuario</button>
+                    <button type="button" class="admin-btn admin-btn-secondary" onclick="closeModal('modal-usuario')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <!--<script src="js/adminDB.js"></script>
+    <script src="js/adminInterfaz.js"></script>-->
+    <script src="js/admin-panel.js"></script>
+    <script src="js/loginAdmin.js"></script>
+    <script src="js/verificarautorizacion.js"></script>
+</body>
+</html>

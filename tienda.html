@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cabaña - Tienda</title>
+    <link rel="stylesheet" href="css/estilofi.css">
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+<!--Cabecera estandarizada-->
+<header>
+    <div class="header-left">
+        <img src="img/dis.png" alt="Logo corazón" class="logo-small">
+    </div>
+
+    <div class="header-title">
+        <h1>Tienda</h1>
+        <img src="img/log-tienda2.png" alt="Logo tienda" class="logo-cabana">
+    </div>
+
+    <div class="header-right">
+        <div class="social-media">
+            <a href="https://www.facebook.com/share/1AzewmxcDW/"><img src="./img/facebook.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/la_cabana._.food?igsh=MTkzZTFlbDMxdWxkbg=="><img src="./img/instagram.png" alt="Instagram"></a>
+            <a href="https://x.com/LaCabaa175607?t=_HEiujz99A590t0oTAxhuQ&s=08"><img src="./img/twitter.png" alt="Twitter"></a>
+        </div>
+        
+        <!-- Icono del carrito con contador -->
+        <a href="carrito.html" style="position: relative; display: inline-block; margin-top: 10px; text-decoration: none;">
+            <span style="font-size: 2em; cursor: pointer;">🛒</span>
+            <span id="carrito-badge" style="position: absolute; top: -5px; right: -5px; background: #d32f2f; color: white; border-radius: 50%; width: 22px; height: 22px; display: none; font-size: 0.65em; text-align: center; line-height: 22px; font-weight: bold;">0</span>
+        </a>
+    </div>
+
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+<!--Barra de navegación-->
+<nav>
+    <a href="login.html" class="login">Iniciar sesión | Registrarse</a>
+    
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="Recetas.html">Recetas</a></li>
+    </ul>
+</nav>
+
+<!--Contenido principal - Estilo Blog-->
+<main class="blog">
+    <!-- Fondo difuminado -->
+    <div class="fondoblog">
+        <img src="img/pri.jpg" alt="Fondo tienda">
+    </div>
+
+    <!-- Contenido de productos -->
+    <div class="contenido">
+        
+        <!-- Producto 1 -->
+        <article class="tarjeta">
+            <img src="img/pimienta.png" alt="Pimienta negra molida">
+            <h3>Pimienta negra molida</h3>
+            <p>Origen: India. Intensidad media-alta. Ideal para carnes, sopas y guisos. Envase de 100g.</p>
+            <div class="descrip">
+                <span>💰</span>
+                <strong style="font-size: 1.3em; color: var(--color-principal);">$12.99</strong>
+            </div>
+            
+            <div class="producto-botones">
+                <button class="button agregar-carrito" 
+                        data-id="pimienta-negra" 
+                        data-nombre="Pimienta negra molida"
+                        data-precio="1299"
+                        data-imagen="img/pimienta.png">
+                    🛒 Carrito
+                </button>
+                
+                <button class="button-comprar-ahora" 
+                        data-nombre="Pimienta negra molida"
+                        data-precio="1299"
+                        data-descripcion="Pimienta negra molida premium - 100g">
+                    ⚡ Comprar
+                </button>
+            </div>
+        </article>
+
+        <!-- Producto 2 -->
+        <article class="tarjeta">
+            <img src="img/pimienta.png" alt="Pimienta rosa en grano">
+            <h3>Pimienta rosa en grano</h3>
+            <p>Delicada y ligeramente dulce. Perfecta para pescados y postres. Envase de 50g.</p>
+            <div class="descrip">
+                <span>💰</span>
+                <strong style="font-size: 1.3em; color: var(--color-principal);">$15.99</strong>
+            </div>
+            
+            <div class="producto-botones">
+                <button class="button agregar-carrito" 
+                        data-id="pimienta-rosa" 
+                        data-nombre="Pimienta rosa en grano"
+                        data-precio="1599"
+                        data-imagen="img/pimienta.png">
+                    🛒 Carrito
+                </button>
+                
+                <button class="button-comprar-ahora" 
+                        data-nombre="Pimienta rosa en grano"
+                        data-precio="1599"
+                        data-descripcion="Pimienta rosa delicada - 50g">
+                    ⚡ Comprar
+                </button>
+            </div>
+        </article>
+
+        <!-- Producto 3 -->
+        <article class="tarjeta">
+            <img src="img/pimienta.png" alt="Pimienta blanca fina">
+            <h3>Pimienta blanca fina</h3>
+            <p>Sabor suave y elegante. Ideal para salsas claras y purés. Envase de 80g.</p>
+            <div class="descrip">
+                <span>💰</span>
+                <strong style="font-size: 1.3em; color: var(--color-principal);">$11.99</strong>
+            </div>
+            
+            <div class="producto-botones">
+                <button class="button agregar-carrito" 
+                        data-id="pimienta-blanca" 
+                        data-nombre="Pimienta blanca fina"
+                        data-precio="1199"
+                        data-imagen="img/pimienta.png">
+                    🛒 Carrito
+                </button>
+                
+                <button class="button-comprar-ahora" 
+                        data-nombre="Pimienta blanca fina"
+                        data-precio="1199"
+                        data-descripcion="Pimienta blanca elegante - 80g">
+                    ⚡ Comprar
+                </button>
+            </div>
+        </article>
+
+        <!-- Producto 4 -->
+        <article class="tarjeta">
+            <img src="img/pimienta.png" alt="Pimienta de Jamaica">
+            <h3>Pimienta de Jamaica</h3>
+            <p>Notas de clavo, canela y nuez moscada. Perfecta para repostería. Envase de 60g.</p>
+            <div class="descrip">
+                <span>💰</span>
+                <strong style="font-size: 1.3em; color: var(--color-principal);">$13.99</strong>
+            </div>
+            
+            <div class="producto-botones">
+                <button class="button agregar-carrito" 
+                        data-id="pimienta-jamaica" 
+                        data-nombre="Pimienta de Jamaica"
+                        data-precio="1399"
+                        data-imagen="img/pimienta.png">
+                    🛒 Carrito
+                </button>
+                
+                <button class="button-comprar-ahora" 
+                        data-nombre="Pimienta de Jamaica"
+                        data-precio="1399"
+                        data-descripcion="Pimienta de Jamaica aromática - 60g">
+                    ⚡ Comprar
+                </button>
+            </div>
+        </article>
+
+        <!-- Producto 5 -->
+        <article class="tarjeta">
+            <img src="img/pimienta.png" alt="Pimienta verde liofilizada">
+            <h3>Pimienta verde liofilizada</h3>
+            <p>Sabor fresco y herbáceo. Ideal para carnes a la plancha. Envase de 40g.</p>
+            <div class="descrip">
+                <span>💰</span>
+                <strong style="font-size: 1.3em; color: var(--color-principal);">$14.99</strong>
+            </div>
+            
+            <div class="producto-botones">
+                <button class="button agregar-carrito" 
+                        data-id="pimienta-verde" 
+                        data-nombre="Pimienta verde liofilizada"
+                        data-precio="1499"
+                        data-imagen="img/pimienta.png">
+                    🛒 Carrito
+                </button>
+                
+                <button class="button-comprar-ahora" 
+                        data-nombre="Pimienta verde liofilizada"
+                        data-precio="1499"
+                        data-descripcion="Pimienta verde fresca - 40g">
+                    ⚡ Comprar
+                </button>
+            </div>
+        </article>
+
+        <!-- Producto 6 -->
+        <article class="tarjeta">
+            <img src="img/pimienta.png" alt="Pimienta larga">
+            <h3>Pimienta larga</h3>
+            <p>Exótica y picante. Usada en cocina india y mediterránea. Envase de 70g.</p>
+            <div class="descrip">
+                <span>💰</span>
+                <strong style="font-size: 1.3em; color: var(--color-principal);">$16.99</strong>
+            </div>
+            
+            <div class="producto-botones">
+                <button class="button agregar-carrito" 
+                        data-id="pimienta-larga" 
+                        data-nombre="Pimienta larga"
+                        data-precio="1699"
+                        data-imagen="img/pimienta.png">
+                    🛒 Carrito
+                </button>
+                
+                <button class="button-comprar-ahora" 
+                        data-nombre="Pimienta larga"
+                        data-precio="1699"
+                        data-descripcion="Pimienta larga exótica - 70g">
+                    ⚡ Comprar
+                </button>
+            </div>
+        </article>
+
+    </div>
+</main>
+
+<!-- PIE DE PÁGINA -->
+<footer class="footer-lacabana">
+    <div class="footer-container-main">
+        <div class="footer-col">
+            <h3>Acerca de Nosotros</h3>
+            <p>La Cabaña es tu espacio para descubrir recetas saludables y deliciosas.</p>
+            <img src="./img/cabañna.png" alt="Logo La Cabaña" class="footer-logo-main">
+        </div>
+
+        <div class="footer-col">
+            <h3>Enlaces Útiles</h3>
+            <ul class="footer-menu-list">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="Recetas.html">Recetas</a></li>
+                <li><a href="Blogconsejos.html">Blog de Consejos</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Contacto</h3>
+            <ul class="footer-contact-list">
+                <li><span>📧</span><a href="mailto:lacabannarese@gmail.com">lacabannarese@gmail.com</a></li>
+                <li><span>📱</span><a href="tel:+522228060935">+52 222 806 0935</a></li>
+                <li><span>📍</span><span>Huajuapan, Oaxaca, México</span></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Síguenos</h3>
+            <div class="footer-social-wrapper">
+                <a href="https://www.facebook.com/share/1AzewmxcDW/" class="footer-social-link"><img src="./img/facebook.png" alt="Facebook"></a>
+                <a href="https://www.instagram.com/la_cabana._.food?igsh=MTkzZTFlbDMxdWxkbg==" class="footer-social-link"><img src="./img/instagram.png" alt="Instagram"></a>
+                <a href="https://x.com/LaCabaa175607?t=_HEiujz99A590t0oTAxhuQ&s=08" class="footer-social-link"><img src="./img/twitter.png" alt="Twitter"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2025 La Cabaña. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/menu-toggle.js"></script>
+<script src="js/auth-session.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/tienda-carrito.js"></script>
+<script src="js/stripe-checkout.js"></script>
+
+</body>
+</html>

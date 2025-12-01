@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cabaña - Crear Consejo</title>
+    <link rel="stylesheet" href="css/estilofi.css">
+
+</head>
+<body>
+
+<!--Cabecera estandarizada-->
+    <header>
+        <div class="header-left">
+            <img src="./img/dis.png" alt="Logo corazón" class="logo-small" id="Admin">
+        </div>
+
+        <div class="header-title">
+            <h1>Tu Consejo</h1>
+            <img src="img/animacion6.gif" alt="Logo consejo" class="logo-cabana">
+        </div>
+    </header>
+
+<!-- BOTÓN HAMBURGUESA -->
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+<!--Barra de navegación estandarizada-->
+    <nav>
+        <!-- Botón de iniciar sesión a la izquierda -->
+        <a href="login.html" class="login">Iniciar sesión | Registrarse</a>
+        
+        <!-- Opciones centradas -->
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Recetas.html">Recetas</a></li>
+            <li><a href="Blogconsejos.html">Blog de consejos</a></li>
+            <li><a href="tusrecetas.html">Tus favoritos</a></li>
+        </ul>
+    </nav>
+
+<!--Contenido principal-->
+    <main>
+        <section class="blog">
+            <div class="fondoblog">
+                <img src="img/fondoblog.jpg" alt="Comida saludable">
+            </div>
+
+            <div class="contenido">
+                <div class="CrearCon">
+                    <h3>Título</h3>
+                    <textarea id="tituloc" placeholder="Ingresa título"></textarea>
+                    
+                    <h3>Ingresa Imagen Principal</h3>
+                    <input id="subirimagen" type="file" accept="image/*">
+                    
+                    <h3>Consejo</h3>
+                    <textarea id="contenidoc" placeholder="Ingresa Texto"></textarea>
+                    
+                    <button id="publicar_consejo" href="Blogconsejos.html" class="button">Publicar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/config.js"></script>
+    <!-- Script del menú hamburguesa -->
+    <script src="js/menu-toggle.js"></script>
+    <!-- Sistema de Autenticación -->
+    <script src="js/auth-session.js"></script>
+    <script src="js/crearBlog.js"></script>
+    <script src="js/loginAdmin.js"></script>
+</body>
+</html>

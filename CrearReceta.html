@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Cabaña - Crear Receta</title>
+    <link rel="stylesheet" href="css/estilofi.css">
+</head>
+<body>
+
+<!--Cabecera estandarizada-->
+    <header>
+        <div class="header-left">
+            <img src="./img/dis.png" alt="Logo corazón" class="logo-small" id="Admin">
+        </div>
+
+        <div class="header-title">
+            <h1>La Cabaña</h1>
+            <img src="img/cabañna.png" alt="Logo cabañita" class="logo-cabana">
+        </div>
+    </header>
+
+    <!-- BOTÓN HAMBURGUESA -->
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+<!--Barra de navegación estandarizada-->
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Recetas.html">Recetas</a></li>
+            <li><a href="Blogconsejos.html">Blog de consejos</a></li>
+            <li><a href="tusrecetas.html">Tus favoritos</a></li>
+        </ul>
+        
+        <!-- Botón de iniciar sesión a la izquierda (solo desktop) -->
+        <a href="login.html" class="login">Iniciar sesión</a>
+    </nav>
+
+<!--Contenido principal-->
+    <main>
+        <div class="content-container">
+            <div class="form-header">
+                <h2 class="form-title">✏️ Crear Nueva Receta</h2>
+                <p class="form-description"><center>Comparte tu receta favorita con la comunidad de La Cabaña</center></p>
+            </div>
+            
+            <section class="recipe-form">
+                <form id="recipeForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="meal-type">🍽️ Tipo de comida:</label>
+                            <select id="meal-type" name="meal-type" required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="Desayuno">Desayuno</option>
+                                <option value="Almuerzo">Almuerzo</option>
+                                <option value="Cena">Cena</option>
+                                <option value="Postre">Postre</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dish-name">🍔 Nombre del plato:</label>
+                            <input type="text" id="dish-name" name="dish-name" placeholder="Ejemplo: Tacos al pastor" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipe-image">📸 Imagen de la receta (opcional):</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="recipe-image" name="recipe-image" accept="image/*">
+                            <label for="recipe-image" class="file-input-label">
+                                <span class="file-input-icon">📁</span>
+                                <span class="file-input-text">Seleccionar imagen</span>
+                            </label>
+                            <div id="image-preview" class="image-preview"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ingredients">🥗 Ingredientes:</label>
+                        <textarea id="ingredients" name="ingredients" rows="6" placeholder="Lista los ingredientes necesarios para tu receta&#10;Ejemplo:&#10;- 500g de carne de cerdo&#10;- 1 piña mediana&#10;- 3 chiles guajillo&#10;- Sal y pimienta al gusto" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">👨‍🍳 Preparación:</label>
+                        <textarea id="description" name="description" rows="10" placeholder="Describe el paso a paso de la preparación de tu receta&#10;Ejemplo:&#10;1. Corta la carne en trozos pequeños&#10;2. Marina la carne con los chiles&#10;3. Deja reposar por 2 horas&#10;..." required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="window.location.href='Recetas.html'">
+                            ← Cancelar
+                        </button>
+                        <button id="publicar_receta" type="submit" class="btn-publicar">
+                            ✨ Publicar Receta
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts en orden correcto -->
+    <script src="js/config.js"></script>
+    <script src="js/menu-toggle.js"></script>
+    <script src="js/auth-session.js"></script>
+    <script src="js/crearReceta.js"></script>
+    <script src="js/loginAdmin.js"></script>
+
+</body>
+</html>

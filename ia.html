@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Cabaña - Receta con IA</title>
+  <link rel="stylesheet" href="css/estilofi.css">
+</head>
+
+<body>
+  <!--Cabecera estandarizada-->
+  <header>
+        <div class="header-left">
+            <img src="./img/dis.png" alt="Logo corazón" class="logo-small" id="Admin">
+        </div>
+    <div class="header-title">
+      <h1>Receta con IA</h1>
+      <img src="img/animacion4.gif" alt="Logo receta" class="logo-cabana">
+    </div>
+  </header>
+
+  <!-- BOTÓN HAMBURGUESA -->
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+  <!--Barra de navegación estandarizada-->
+  <nav>
+    <!-- Botón de iniciar sesión a la izquierda -->
+    <a href="login.html" class="login">Iniciar sesión</a>
+    
+    <!-- Opciones centradas -->
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="Recetas.html">Recetas</a></li>
+    </ul>
+  </nav>
+  <!--Barra de navegación estandarizada-->
+
+  <!--Contenido principal-->
+  <main>
+    <div class="ia-container">
+      <!-- Hero Section -->
+      <div class="ia-hero">
+        <h2 class="ia-title">🤖 Crea tu receta con Inteligencia Artificial</h2>
+        <p class="ia-subtitle">El futuro de la cocina saludable está aquí</p>
+        <p class="ia-description">
+          Describe los ingredientes que tienes o el tipo de platillo que deseas, 
+          y nuestra IA creará una receta deliciosa, saludable y personalizada especialmente para ti.
+        </p>
+      </div>
+
+      <!-- Input Section -->
+      <div class="input-wrapper">
+        <div class="input-group">
+          <input 
+            type="text" 
+            id="userInput" 
+            placeholder="receta de pollo y verduras..."
+            autocomplete="off"
+          >
+          <button id="generateBtn">✨ Generar receta</button>
+        </div>
+        <p class="input-hint">Tip: Sé específico con los ingredientes o el tipo de platillo que buscas</p>
+        
+        <!-- Ejemplos de prompts -->
+        <div class="example-prompts">
+          <span class="example-prompt" onclick="setPrompt('receta vegetariana con quinoa')">🥗 Vegetariana con quinoa</span>
+          <span class="example-prompt" onclick="setPrompt('postre saludable sin azúcar')">🍰 Postre sin azúcar</span>
+          <span class="example-prompt" onclick="setPrompt('cena ligera con pescado')">🐟 Cena con pescado</span>
+          <span class="example-prompt" onclick="setPrompt('desayuno energético')">🍳 Desayuno energético</span>
+        </div>
+      </div>
+
+      <!-- Resultado -->
+      <div id="recipeResult" style="display:none;">
+        <h4 id="recipeTitle"></h4>
+        <div class="recipe-section">
+          <h5>📋 Ingredientes</h5>
+          <div id="recipeIngredients"></div>
+        </div>
+        <div class="recipe-section">
+          <h5>👨‍🍳 Preparación</h5>
+          <div id="recipeSteps"></div>
+        </div>
+      </div>
+
+      <p id="statusMessage"></p>
+    </div>
+  </main>
+
+  <script>
+    // Función para establecer un prompt de ejemplo
+    function setPrompt(text) {
+      document.getElementById('userInput').value = text;
+      document.getElementById('userInput').focus();
+    }
+  </script>
+  <script src="js/config.js"></script>
+  <!-- Script del menú hamburguesa -->
+    <script src="js/menu-toggle.js"></script>
+  <script src="js/ia.js"></script>
+  <!-- Sistema de Autenticación -->
+    <script src="js/auth-session.js"></script>
+    <script src="js/loginAdmin.js"></script>
+</body>
+
+</html>
