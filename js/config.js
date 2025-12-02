@@ -13,8 +13,8 @@ const API_CONFIG = {
   LOCAL_BASE: 'http://localhost:3000',
   
   // URLs de producción (Render)
-  PRODUCTION: RENDER_API_URL,
-  PRODUCTION_BASE: RENDER_BASE_URL,
+  PRODUCTION: API_URL,
+  PRODUCTION_BASE: BASE_URL,
   
   get BASE_URL() {
     // Si estamos en localhost, usar API local
