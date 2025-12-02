@@ -2,10 +2,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const API_URL = 'https://backend-vjgm.onrender.com/api';
   const API_BASE = 'https://backend-vjgm.onrender.com';
 
-  console.log('🔧 Configuración Recetas:');
-  console.log('   API_URL:', API_URL);
-  console.log('   API_BASE:', API_BASE);
-
   const grid = document.getElementById("publicadas-grid");
 
   const rawSession = localStorage.getItem('userSession');
@@ -22,8 +18,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function cargarRecetasPublicadas(filtros = {}) {
-  const API_URL = window.API_URL || 'http://localhost:3000/api';
-  const API_BASE = window.API_BASE || 'http://localhost:3000';
+  const API_URL = 'https://backend-vjgm.onrender.com/api';
+  const API_BASE = 'https://backend-vjgm.onrender.com';
   const grid = document.getElementById("publicadas-grid");
 
   if (!grid) {
