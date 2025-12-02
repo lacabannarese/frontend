@@ -14,7 +14,7 @@ const API_CONFIG = {
   
   // URLs de producción (Render)
   PRODUCTION: API_URL,
-  PRODUCTION_BASE: BASE_URL,
+  PRODUCTION_BASE: API_BASE,
   
   get BASE_URL() {
     // Si estamos en localhost, usar API local
