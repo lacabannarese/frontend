@@ -1,9 +1,8 @@
 // Configuración de la API para RedRecetas - VERSIÓN PRODUCCIÓN
 // ============================================================
 
-// Configuración de URLs
-    const API_URL = 'https://backend-vjgm.onrender.com/api';
-    const API_BASE = 'https://backend-vjgm.onrender.com';
+const API_URL = 'https://backend-vjgm.onrender.com/api';
+const API_BASE = 'https://backend-vjgm.onrender.com';
 
 const isLocalhost = window.location.hostname === 'localhost' || 
                     window.location.hostname === '127.0.0.1';
@@ -64,15 +63,6 @@ window.apiRequest = async function(endpoint, options = {}) {
     throw error;
   }
 };
-
-// Log de configuración
-console.log('🔧 API Config:', {
-  'Entorno': isLocalhost ? 'DESARROLLO (Local)' : 'PRODUCCIÓN (Hostinger)',
-  'API URL': window.API_URL,
-  'API BASE': window.API_BASE,
-  'Hostname': window.location.hostname,
-  'Render Backend': RENDER_API_URL
-});
 
 // Verificar conectividad con la API al cargar
 async function checkAPIConnection() {
