@@ -1,9 +1,6 @@
 // Configuración de la API para RedRecetas - VERSIÓN PRODUCCIÓN
 // ============================================================
 
-const API_URL = 'https://backend-vjgm.onrender.com/api';
-const API_BASE = 'https://backend-vjgm.onrender.com';
-
 const isLocalhost = window.location.hostname === 'localhost' || 
                     window.location.hostname === '127.0.0.1';
 
@@ -13,42 +10,31 @@ const API_CONFIG = {
   LOCAL_BASE: 'http://localhost:3000',
   
   // URLs de producción (Render)
-  PRODUCTION: RENDER_API_URL,
-  PRODUCTION_BASE: RENDER_BASE_URL,
+  PRODUCTION: 'https://backend-vjgm.onrender.com/api',
+  PRODUCTION_BASE: 'https://backend-vjgm.onrender.com',
   
   get BASE_URL() {
-    // Si estamos en localhost, usar API local
-    if (isLocalhost) {
-      return this.LOCAL;
-    }
-    // Si estamos en producción (Hostinger), usar Render
-    else {
-      return this.PRODUCTION;
-    }
+    return isLocalhost ? this.LOCAL : this.PRODUCTION;
   },
   
   get BASE() {
-    if (isLocalhost) {
-      return this.LOCAL_BASE;
-    } else {
-      return this.PRODUCTION_BASE;
-    }
+    return isLocalhost ? this.LOCAL_BASE : this.PRODUCTION_BASE;
   }
 };
 
-// Exportar la configuración para uso global
+// Exportar config global
 window.API_URL = API_CONFIG.BASE_URL;
 window.API_BASE = API_CONFIG.BASE;
 
-// Función helper para hacer peticiones a la API
+// Función helper para peticiones
 window.apiRequest = async function(endpoint, options = {}) {
   try {
-    const url = endpoint.startsWith('http') ? endpoint : `${window.API_URL}${endpoint}`;
+    const url = endpoint.startsWith('http') 
+      ? endpoint 
+      : `${window.API_URL}${endpoint}`;
     
     const defaultOptions = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     };
     
     const response = await fetch(url, { ...defaultOptions, ...options });
@@ -64,7 +50,7 @@ window.apiRequest = async function(endpoint, options = {}) {
   }
 };
 
-// Verificar conectividad con la API al cargar
+// Verificar conectividad con API
 async function checkAPIConnection() {
   try {
     const testUrl = window.API_BASE;
@@ -73,9 +59,7 @@ async function checkAPIConnection() {
     const response = await fetch(testUrl, {
       method: 'GET',
       mode: 'cors',
-      headers: {
-        'Accept': 'application/json',
-      }
+      headers: { 'Accept': 'application/json' },
     });
     
     if (response.ok) {
@@ -93,7 +77,7 @@ async function checkAPIConnection() {
   }
 }
 
-// Ejecutar verificación al cargar la página
+// Ejecutar verificación al cargar
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', checkAPIConnection);
 } else {
