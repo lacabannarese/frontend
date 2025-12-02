@@ -3,8 +3,9 @@
 
 class CargarFavoritos {
     constructor() {
-     const API_URL = 'https://backend-vjgm.onrender.com/api';
-     const API_BASE = 'https://backend-vjgm.onrender.com';
+        // ✅ CORRECCIÓN: Asignar como propiedades de la instancia
+        this.API_URL = 'https://backend-vjgm.onrender.com/api';
+        this.API_BASE = 'https://backend-vjgm.onrender.com';
         this.grid = null;
         this.init();
     }
