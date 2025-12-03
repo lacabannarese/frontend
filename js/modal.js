@@ -166,7 +166,7 @@ document.addEventListener("click", function (e) {
     let contenidoHTML = "";
     let imagenSrc = "";
 
-    // ----------------------------------------------------
+// ----------------------------------------------------
 // RECETAS
 // ----------------------------------------------------
 if (card.classList.contains("menu-item")) {
@@ -176,6 +176,8 @@ if (card.classList.contains("menu-item")) {
     
     // ✅ Obtener el ID de la receta
     const recetaId = card.getAttribute('data-receta-id');
+    
+    console.log('🔍 ID de receta obtenido:', recetaId);
 
     if (recetaId) {
         // ✅ MOSTRAR INDICADOR DE CARGA
@@ -189,13 +191,33 @@ if (card.classList.contains("menu-item")) {
         descripcionModal.innerHTML = contenidoHTML;
         modal.style.display = "flex";
 
+        // ✅ Verificar que API_URL esté definido
+        if (typeof API_URL === 'undefined' || typeof API_BASE === 'undefined') {
+            console.error('❌ API_URL o API_BASE no están definidos');
+            descripcionModal.innerHTML = `
+                <div style="text-align:center; padding:20px;">
+                    <p style="color:#d32f2f; font-size:1.1em;">❌ Error de configuración</p>
+                    <p style="color:#666;">Las variables de API no están definidas</p>
+                </div>
+            `;
+            return;
+        }
+
+        const apiUrl = `${API_URL}/recetas/${recetaId}`;
+        console.log('📡 Haciendo petición a:', apiUrl);
+
         // ✅ OBTENER DATOS COMPLETOS DE LA RECETA DESDE LA API
-        fetch(`${API_URL}/recetas/${recetaId}`)
+        fetch(apiUrl)
             .then(response => {
-                if (!response.ok) throw new Error('Error al cargar la receta');
+                console.log('📥 Respuesta recibida:', response.status, response.statusText);
+                if (!response.ok) {
+                    throw new Error(`Error HTTP ${response.status}: ${response.statusText}`);
+                }
                 return response.json();
             })
             .then(receta => {
+                console.log('✅ Datos de receta recibidos:', receta);
+                
                 // ✅ CONSTRUIR HTML CON INGREDIENTES Y PROCEDIMIENTO
                 const ingredientesHTML = receta.ingredientes 
                     ? `<div style="background-color:#fff; padding:15px; border-radius:8px; margin-bottom:15px;">
@@ -211,8 +233,10 @@ if (card.classList.contains("menu-item")) {
                        </div>`
                     : '';
 
-                const imagenURL = receta.imagen 
-                    ? (receta.imagen.startsWith('http') ? receta.imagen : `${API_BASE}${receta.imagen}`)
+                const imagenURL = receta.imagen?.almacenadoEn
+                    ? (receta.imagen.almacenadoEn.startsWith('http') 
+                        ? receta.imagen.almacenadoEn 
+                        : `${API_BASE}${receta.imagen.almacenadoEn}`)
                     : imagenSrc;
 
                 contenidoHTML = `
@@ -240,11 +264,15 @@ if (card.classList.contains("menu-item")) {
                 }
             })
             .catch(error => {
-                console.error('Error al cargar receta:', error);
+                console.error('❌ Error completo:', error);
+                console.error('❌ Mensaje:', error.message);
+                console.error('❌ Stack:', error.stack);
+                
                 descripcionModal.innerHTML = `
                     <div style="text-align:center; padding:20px;">
                         <p style="color:#d32f2f; font-size:1.1em;">❌ Error al cargar la receta</p>
-                        <p style="color:#666;">Por favor, intenta nuevamente</p>
+                        <p style="color:#666; font-size:0.9em;">${error.message}</p>
+                        <p style="color:#999; font-size:0.8em; margin-top:10px;">Revisa la consola para más detalles</p>
                     </div>
                 `;
             });
