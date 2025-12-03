@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Cabaña - Blog de Consejos</title>
     <link rel="stylesheet" href="css/estilofi.css">
+    <style>
+        .tarjeta > p:not(.descrip p) {
+          display: -webkit-box;
+          -webkit-line-clamp: 3; /* Mostrar 3 líneas (≈ 30 palabras) */
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          line-height: 1.6em;
+          max-height: 4.8em; /* 1.6em * 3 líneas */
+          margin: 0.8rem 0;
+        }
+
+/* Asegurar que el texto completo esté disponible para el modal */
+.tarjeta > p {
+    </style>
 </head>
 <body>
 
