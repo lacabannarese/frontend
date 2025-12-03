@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const API_URL = 'https://backend-vjgm.onrender.com/api';
   const API_BASE = 'https://backend-vjgm.onrender.com';
-
   const grid = document.getElementById("publicadas-grid");
-
   const rawSession = localStorage.getItem('userSession');
   const session = rawSession ? JSON.parse(rawSession) : {};
   const nombreUsuario = session.nombreUsuario || "Invitado";
@@ -13,7 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (grid?.dataset.usuario) filtros.usuario = nombreUsuario;
   if (grid?.dataset.titulo) filtros.titulo = grid.dataset.titulo;
   if (grid?.dataset.ingrediente) filtros.ingrediente = grid.dataset.ingrediente;
-
   await cargarRecetasPublicadas(filtros);
 });
 
@@ -21,25 +18,23 @@ async function cargarRecetasPublicadas(filtros = {}) {
   const API_URL = 'https://backend-vjgm.onrender.com/api';
   const API_BASE = 'https://backend-vjgm.onrender.com';
   const grid = document.getElementById("publicadas-grid");
-
   if (!grid) {
     console.error('❌ Contenedor de recetas no encontrado');
     return;
   }
-
   grid.innerHTML = "<p style='text-align: center; padding: 2rem;'>⏳ Cargando recetas...</p>";
-
+  
   try {
     const params = new URLSearchParams(filtros).toString();
     const url = `${API_URL}/recetas${params ? `?${params}` : ''}`;
     console.log('📖 Cargando recetas desde:', url);
-
+    
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-
+    
     const recetas = await response.json();
     console.log(`✅ ${recetas.length} recetas cargadas:`, recetas);
-
+    
     if (!Array.isArray(recetas) || recetas.length === 0) {
       grid.innerHTML = `
         <div style="text-align: center; padding: 3rem; grid-column: 1/-1;">
@@ -48,7 +43,7 @@ async function cargarRecetasPublicadas(filtros = {}) {
       `;
       return;
     }
-
+    
     grid.innerHTML = recetas.map(receta => {
       let imagenURL = 'img/carne.jpg';
       if (receta.imagen?.almacenadoEn) {
@@ -56,9 +51,10 @@ async function cargarRecetasPublicadas(filtros = {}) {
           ? receta.imagen.almacenadoEn
           : `${API_BASE}${receta.imagen.almacenadoEn}`;
       }
-
+      
+      // ✅ CAMBIO PRINCIPAL: Agregar data-receta-id con el _id de MongoDB
       return `
-        <article class="menu-item">
+        <article class="menu-item" data-receta-id="${receta._id}">
           <div class="item-image-container">
             <img src="${imagenURL}" alt="${escapeHtml(receta.titulo)}" class="item-image">
           </div>
@@ -75,14 +71,13 @@ async function cargarRecetasPublicadas(filtros = {}) {
         </article>
       `;
     }).join("");
-
+    
     console.log('✅ Recetas renderizadas correctamente');
     
     // Inicializar sistema de favoritos después de renderizar
     if (window.favoritosSystem) {
       window.favoritosSystem.setupBookmarks();
     }
-
   } catch (err) {
     console.error('❌ Error cargando recetas:', err);
     grid.innerHTML = `<p>Error al cargar recetas: ${err.message}</p>`;
