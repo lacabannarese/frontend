@@ -276,6 +276,14 @@ nav ul li a:hover {
 }
 
 /* ========== RESPONSIVE DESIGN ========== */
+
+/* Desktop: Ocultar botón de login dentro del ul */
+@media screen and (min-width: 769px) {
+    nav ul li .login {
+        display: none !important;
+    }
+}
+
 @media screen and (max-width: 768px) {
     html {
         height: auto !important;
@@ -365,8 +373,12 @@ nav ul li a:hover {
         position: relative;
     }
     
-    nav > .login {
+    /* Ocultar el botón de login que está FUERA del ul en móvil */
+    nav > a.login {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
     }
     
     nav > ul:not(.active) {
@@ -520,6 +532,9 @@ nav ul li a:hover {
     }
     
     nav .login {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
         position: relative;
         left: auto;
         top: auto;
