@@ -191,7 +191,7 @@ if (card.classList.contains("menu-item")) {
         descripcionModal.innerHTML = contenidoHTML;
         modal.style.display = "flex";
 
-        // ✅ SOLUCIÓN: Obtener todas las recetas y filtrar por ID
+        // ✅ Obtener todas las recetas y filtrar por ID
         fetch(`${API_URL}/recetas`)
             .then(response => {
                 console.log('📥 Respuesta recibida:', response.status);
@@ -210,11 +210,19 @@ if (card.classList.contains("menu-item")) {
                 
                 console.log('✅ Receta encontrada:', receta);
                 
+                // ✅ CONVERTIR INGREDIENTES: Si es array, unirlo con saltos de línea
+                let ingredientesTexto = '';
+                if (Array.isArray(receta.ingredientes)) {
+                    ingredientesTexto = receta.ingredientes.join('\n');
+                } else if (typeof receta.ingredientes === 'string') {
+                    ingredientesTexto = receta.ingredientes;
+                }
+                
                 // ✅ CONSTRUIR HTML CON INGREDIENTES Y PROCEDIMIENTO
-                const ingredientesHTML = receta.ingredientes 
+                const ingredientesHTML = ingredientesTexto
                     ? `<div style="background-color:#fff; padding:15px; border-radius:8px; margin-bottom:15px;">
                         <h3 style="color:#8b4513; margin-bottom:10px;">🥗 Ingredientes:</h3>
-                        <div style="white-space:pre-line; line-height:1.8;">${receta.ingredientes}</div>
+                        <div style="white-space:pre-line; line-height:1.8;">${ingredientesTexto}</div>
                        </div>`
                     : '';
 
@@ -247,12 +255,21 @@ if (card.classList.contains("menu-item")) {
 
                 descripcionModal.innerHTML = contenidoHTML;
 
-                // ✅ Inicializar sistemas
-                if (window.ratingSystem) {
-                    inicializarEstrellasModal(descripcionModal, recetaId);
+                // ✅ Inicializar sistemas (con protección de errores)
+                try {
+                    if (window.ratingSystem) {
+                        inicializarEstrellasModal(descripcionModal, recetaId);
+                    }
+                } catch (e) {
+                    console.warn('⚠️ Error al inicializar estrellas:', e);
                 }
-                if (window.favoritosSystem) {
-                    inicializarGuardarModal(descripcionModal, recetaId);
+                
+                try {
+                    if (window.favoritosSystem && typeof favoritosSystem.esFavorito === 'function') {
+                        inicializarGuardarModal(descripcionModal, recetaId);
+                    }
+                } catch (e) {
+                    console.warn('⚠️ Error al inicializar favoritos:', e);
                 }
             })
             .catch(error => {
@@ -262,7 +279,6 @@ if (card.classList.contains("menu-item")) {
                     <div style="text-align:center; padding:20px;">
                         <p style="color:#d32f2f; font-size:1.1em;">❌ Error al cargar la receta</p>
                         <p style="color:#666; font-size:0.9em;">${error.message}</p>
-                        <p style="color:#999; font-size:0.8em; margin-top:10px;">Revisa la consola para más detalles</p>
                     </div>
                 `;
             });
