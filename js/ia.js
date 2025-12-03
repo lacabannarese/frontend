@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyDvAiqrrZ-mgzSuhg0J4mZ1ceNzi0H7pUw";//"AIzaSyCjHyTj9LrrvNJb7Ksu3nb6eYPO4fM9NXE";
+const API_KEY = "AIzaSyCjHyTj9LrrvNJb7Ksu3nb6eYPO4fM9NXE"; //"AIzaSyBaMqNcZvL3g7wtaWrh7UYa_uqj0MVWfYo";
 const MODEL = "gemini-2.0-flash";
 const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 
@@ -62,3 +62,4 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
     status.textContent = "Error al generar la receta. Inténtalo de nuevo.";
   }
 });
+
