@@ -167,49 +167,94 @@ document.addEventListener("click", function (e) {
     let imagenSrc = "";
 
     // ----------------------------------------------------
-    // RECETAS
-    // ----------------------------------------------------
-    if (card.classList.contains("menu-item")) {
+// RECETAS
+// ----------------------------------------------------
+if (card.classList.contains("menu-item")) {
+    
+    tituloTexto = card.querySelector(".item-text h2")?.innerText || "Receta";
+    imagenSrc = card.querySelector(".item-image")?.src || "";
+    
+    // ✅ Obtener el ID de la receta
+    const recetaId = card.getAttribute('data-receta-id');
 
-        tituloTexto = card.querySelector(".item-text h2")?.innerText || "Receta";
-        imagenSrc = card.querySelector(".item-image")?.src || "";
-        const textoDesc = card.querySelector(".item-text p")?.innerHTML || "";
-
-        // ✅ Obtener el ID de la receta
-        const recetaId = card.getAttribute('data-receta-id');
-
+    if (recetaId) {
+        // ✅ MOSTRAR INDICADOR DE CARGA
         contenidoHTML = `
-            <div style="display:flex; flex-direction:column; gap:15px; width:100%;">
-                ${imagenSrc ? `<img src="${imagenSrc}" style="width:100%; max-height:350px; object-fit:cover; border-radius:12px;">` : ""}
-                <div style="font-size:1.1em; line-height:1.6; color:#4a2c2a; text-align:justify;">
-                    ${textoDesc}
-                </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-                    <div class="rating-stars"></div>
-                    <img src="img/guardar.png" alt="Guardar" class="bookmark-icon-modal" style="width:35px; cursor:pointer;">
-                </div>
+            <div style="display:flex; justify-content:center; align-items:center; min-height:200px;">
+                <p style="font-size:1.2em; color:#666;">Cargando receta...</p>
             </div>
         `;
-
+        
         tituloModal.innerText = tituloTexto;
         descripcionModal.innerHTML = contenidoHTML;
-
-        // ✅ Inicializar sistemas usando el ID correcto
-        if (recetaId) {
-            if (window.ratingSystem) {
-                inicializarEstrellasModal(descripcionModal, recetaId);
-            }
-            if (window.favoritosSystem) {
-                inicializarGuardarModal(descripcionModal, recetaId);
-            }
-        } else {
-            console.warn('⚠️ No se encontró data-receta-id en la tarjeta');
-        }
-
         modal.style.display = "flex";
-        return;
+
+        // ✅ OBTENER DATOS COMPLETOS DE LA RECETA DESDE LA API
+        fetch(`${API_URL}/recetas/${recetaId}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Error al cargar la receta');
+                return response.json();
+            })
+            .then(receta => {
+                // ✅ CONSTRUIR HTML CON INGREDIENTES Y PROCEDIMIENTO
+                const ingredientesHTML = receta.ingredientes 
+                    ? `<div style="background-color:#fff; padding:15px; border-radius:8px; margin-bottom:15px;">
+                        <h3 style="color:#8b4513; margin-bottom:10px;">🥗 Ingredientes:</h3>
+                        <div style="white-space:pre-line; line-height:1.8;">${receta.ingredientes}</div>
+                       </div>`
+                    : '';
+
+                const procedimientoHTML = receta.descripcion 
+                    ? `<div style="background-color:#fff; padding:15px; border-radius:8px; margin-bottom:15px;">
+                        <h3 style="color:#8b4513; margin-bottom:10px;">👨‍🍳 Preparación:</h3>
+                        <div style="white-space:pre-line; line-height:1.8; text-align:justify;">${receta.descripcion}</div>
+                       </div>`
+                    : '';
+
+                const imagenURL = receta.imagen 
+                    ? (receta.imagen.startsWith('http') ? receta.imagen : `${API_BASE}${receta.imagen}`)
+                    : imagenSrc;
+
+                contenidoHTML = `
+                    <div style="display:flex; flex-direction:column; gap:15px; width:100%;">
+                        ${imagenURL ? `<img src="${imagenURL}" style="width:100%; max-height:350px; object-fit:cover; border-radius:12px;">` : ""}
+                        
+                        ${ingredientesHTML}
+                        ${procedimientoHTML}
+                        
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; background-color:#fff; padding:10px; border-radius:8px;">
+                            <div class="rating-stars"></div>
+                            <img src="img/guardar.png" alt="Guardar" class="bookmark-icon-modal" style="width:35px; cursor:pointer;">
+                        </div>
+                    </div>
+                `;
+
+                descripcionModal.innerHTML = contenidoHTML;
+
+                // ✅ Inicializar sistemas
+                if (window.ratingSystem) {
+                    inicializarEstrellasModal(descripcionModal, recetaId);
+                }
+                if (window.favoritosSystem) {
+                    inicializarGuardarModal(descripcionModal, recetaId);
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar receta:', error);
+                descripcionModal.innerHTML = `
+                    <div style="text-align:center; padding:20px;">
+                        <p style="color:#d32f2f; font-size:1.1em;">❌ Error al cargar la receta</p>
+                        <p style="color:#666;">Por favor, intenta nuevamente</p>
+                    </div>
+                `;
+            });
+    } else {
+        console.warn('⚠️ No se encontró data-receta-id en la tarjeta');
+        alert('No se pudo cargar la receta. Falta el identificador.');
     }
 
+    return;
+}
     // ----------------------------------------------------
     // BLOGS
     // ----------------------------------------------------
