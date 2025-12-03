@@ -15,6 +15,35 @@ document.addEventListener("DOMContentLoaded", () => {
         const confirmar = document.getElementById("confirm-password").value;
         const tipo = "usuario";
 
+        // ✅ Validar formato básico de correo electrónico
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(correo)) {
+            alert("⚠️ Por favor, ingresa un correo electrónico válido.");
+            return;
+        }
+        
+        // ✅ Validar que el dominio sea uno de los permitidos
+        const dominiosPermitidos = [
+            '@gs.utm.mx',
+            '@mixteco.utm.mx',
+            '@gmail.com',
+            '@outlook.com',
+            '@hotmail.com',
+            '@yahoo.com',
+            '@icloud.com',
+            '@protonmail.com',
+            '@zoho.com'
+        ];
+        
+        const correoMinuscula = correo.toLowerCase();
+        const dominioValido = dominiosPermitidos.some(dominio => correoMinuscula.endsWith(dominio));
+        
+        if (!dominioValido) {
+            alert("⚠️ Solo se permiten correos de: gs.utm.mx, mixteco.utm.mx, gmail.com, outlook.com, hotmail.com, yahoo.com, icloud.com, protonmail.com o zoho.com");
+            return;
+        }
+     
+        
         // Validar contraseñas
         if (password !== confirmar) {
             alert("⚠️ Las contraseñas no coinciden.");
