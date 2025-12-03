@@ -191,32 +191,24 @@ if (card.classList.contains("menu-item")) {
         descripcionModal.innerHTML = contenidoHTML;
         modal.style.display = "flex";
 
-        // ✅ Verificar que API_URL esté definido
-        if (typeof API_URL === 'undefined' || typeof API_BASE === 'undefined') {
-            console.error('❌ API_URL o API_BASE no están definidos');
-            descripcionModal.innerHTML = `
-                <div style="text-align:center; padding:20px;">
-                    <p style="color:#d32f2f; font-size:1.1em;">❌ Error de configuración</p>
-                    <p style="color:#666;">Las variables de API no están definidas</p>
-                </div>
-            `;
-            return;
-        }
-
-        const apiUrl = `${API_URL}/recetas/${recetaId}`;
-        console.log('📡 Haciendo petición a:', apiUrl);
-
-        // ✅ OBTENER DATOS COMPLETOS DE LA RECETA DESDE LA API
-        fetch(apiUrl)
+        // ✅ SOLUCIÓN: Obtener todas las recetas y filtrar por ID
+        fetch(`${API_URL}/recetas`)
             .then(response => {
-                console.log('📥 Respuesta recibida:', response.status, response.statusText);
+                console.log('📥 Respuesta recibida:', response.status);
                 if (!response.ok) {
                     throw new Error(`Error HTTP ${response.status}: ${response.statusText}`);
                 }
                 return response.json();
             })
-            .then(receta => {
-                console.log('✅ Datos de receta recibidos:', receta);
+            .then(recetas => {
+                // Buscar la receta específica por ID
+                const receta = recetas.find(r => r._id === recetaId);
+                
+                if (!receta) {
+                    throw new Error('Receta no encontrada');
+                }
+                
+                console.log('✅ Receta encontrada:', receta);
                 
                 // ✅ CONSTRUIR HTML CON INGREDIENTES Y PROCEDIMIENTO
                 const ingredientesHTML = receta.ingredientes 
@@ -265,8 +257,6 @@ if (card.classList.contains("menu-item")) {
             })
             .catch(error => {
                 console.error('❌ Error completo:', error);
-                console.error('❌ Mensaje:', error.message);
-                console.error('❌ Stack:', error.stack);
                 
                 descripcionModal.innerHTML = `
                     <div style="text-align:center; padding:20px;">
