@@ -84,24 +84,35 @@ function handleToggleClick(e) {
 }
 
 // --------------------------------------------------------
-// INICIALIZAR BOOKMARK EN MODAL (FUNCIONA CON ratingSystem)
+// INICIALIZAR BOOKMARK EN MODAL (✅ CORREGIDO: Usar favoritosSystem)
 // --------------------------------------------------------
 function inicializarGuardarModal(modalContainer, itemId) {
     const bookmark = modalContainer.querySelector(".bookmark-icon-modal");
     if (!bookmark) return;
 
-    if (window.ratingSystem) {
-        const bookmarks = ratingSystem.loadBookmarks();
-        bookmark.style.filter = bookmarks[itemId]
-            ? 'brightness(0.7) sepia(1) hue-rotate(-10deg) saturate(8)'
+    // ✅ CORRECCIÓN: Usar favoritosSystem en lugar de ratingSystem
+    if (window.favoritosSystem) {
+        // Verificar si está en favoritos
+        const esFavorito = favoritosSystem.esFavorito(itemId);
+        
+        // Aplicar el estilo visual
+        bookmark.style.filter = esFavorito
+            ? 'brightness(0) saturate(100%) invert(71%) sepia(63%) saturate(2234%) hue-rotate(2deg) brightness(104%) contrast(101%)'
             : '';
+        
+        bookmark.classList.toggle('bookmarked', esFavorito);
 
-        bookmark.onclick = (e) => {
+        // Manejar clic
+        bookmark.onclick = async (e) => {
             e.stopPropagation();
-            ratingSystem.toggleBookmark(itemId, bookmark);
+            await favoritosSystem.toggleFavorito(itemId, bookmark);
         };
     } else {
-        bookmark.onclick = () => alert("Receta guardada (Sistema no disponible)");
+        console.warn('⚠️ Sistema de favoritos no disponible');
+        bookmark.onclick = (e) => {
+            e.stopPropagation();
+            alert("Sistema de favoritos no disponible. Por favor, recarga la página.");
+        };
     }
 }
 
@@ -164,6 +175,9 @@ document.addEventListener("click", function (e) {
         imagenSrc = card.querySelector(".item-image")?.src || "";
         const textoDesc = card.querySelector(".item-text p")?.innerHTML || "";
 
+        // ✅ Obtener el ID de la receta
+        const recetaId = card.getAttribute('data-receta-id');
+
         contenidoHTML = `
             <div style="display:flex; flex-direction:column; gap:15px; width:100%;">
                 ${imagenSrc ? `<img src="${imagenSrc}" style="width:100%; max-height:350px; object-fit:cover; border-radius:12px;">` : ""}
@@ -180,12 +194,16 @@ document.addEventListener("click", function (e) {
         tituloModal.innerText = tituloTexto;
         descripcionModal.innerHTML = contenidoHTML;
 
-        if (window.ratingSystem) {
-            const itemId = ratingSystem.getItemId(card);
-            inicializarEstrellasModal(descripcionModal, itemId);
-            inicializarGuardarModal(descripcionModal, itemId);
+        // ✅ Inicializar sistemas usando el ID correcto
+        if (recetaId) {
+            if (window.ratingSystem) {
+                inicializarEstrellasModal(descripcionModal, recetaId);
+            }
+            if (window.favoritosSystem) {
+                inicializarGuardarModal(descripcionModal, recetaId);
+            }
         } else {
-            inicializarGuardarModal(descripcionModal);
+            console.warn('⚠️ No se encontró data-receta-id en la tarjeta');
         }
 
         modal.style.display = "flex";
