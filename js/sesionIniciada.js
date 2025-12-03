@@ -8,5 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("RecetasPublicadas").setAttribute("href", "login.html");
     document.getElementById("CrearReceta").setAttribute("href", "login.html");
     document.getElementById("CrearConsejo").setAttribute("href", "login.html");
+    document.getElementById("Tienda").setAttribute("href", "login.html");
   }
 });
