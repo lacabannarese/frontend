@@ -372,16 +372,18 @@ async function guardarUsuario(event) {
 }
 
 async function eliminarUsuario(nombreUsuario) {
-    if (!confirm('¿Estás seguro de eliminar este usuario?')) return;
-    
+    if (!confirm(`¿Estás seguro de eliminar al usuario "${nombreUsuario}"?`)) return;
+
     try {
-        const response = await fetch(`${API_URL}/usuarios/${nombreUsuario}`, {
+        const response = await fetch(`${API_URL}/usuarios/${encodeURIComponent(nombreUsuario)}`, {
             method: 'DELETE'
         });
-        
-        if (!response.ok) throw new Error('Error al eliminar usuario');
-        
-        showAlert('Usuario eliminado exitosamente', 'error');
+
+        if (!response.ok) {
+            throw new Error(`Error al eliminar usuario: ${response.status} ${response.statusText}`);
+        }
+
+        showAlert('Usuario eliminado exitosamente', 'success');
         await cargarUsuarios();
         await actualizarEstadisticas();
     } catch (error) {
@@ -638,4 +640,5 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
     init();
+
 }
