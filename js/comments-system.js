@@ -265,46 +265,12 @@ function createCommentElement(comment, blogId) {
             <span class="comment-date">${formattedDate}</span>
         </div>
         <p class="comment-text">${escapeHtml(comment.texto)}</p>
-        ${isOwnComment ? `
-        <div class="comment-actions-bottom">
-            <button class="btn-delete" onclick="deleteComment('${comment._id}', ${blogId})">🗑️ Eliminar</button>
-        </div>
-        ` : ''}
     `;
     
     return div;
 }
 
-async function deleteComment(commentId, blogId) {
-    if (!confirm('¿Estás seguro de que deseas eliminar este comentario?')) {
-        return;
-    }
-    
-    console.log('🗑️ Eliminando comentario:', commentId);
-    
-    try {
-        const API_URL = 'https://backend-vjgm.onrender.com/api';
-        const response = await fetch(`${API_URL}/comentariosBlog/${commentId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al eliminar comentario');
-        }
-        
-        console.log('✅ Comentario eliminado exitosamente');
-        await loadComments(blogId);
-        showNotification('✓ Comentario eliminado', 'success');
-        
-    } catch (error) {
-        console.error('❌ Error al eliminar comentario:', error);
-        showNotification('✗ Error al eliminar el comentario', 'error');
-    }
-}
+
 
 function formatDate(date) {
     const now = new Date();
@@ -381,4 +347,3 @@ function showNotification(message, type = 'info') {
 // Exportar funciones globales
 window.toggleComments = toggleComments;
 window.addComment = addComment;
-window.deleteComment = deleteComment;
