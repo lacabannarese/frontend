@@ -280,10 +280,15 @@ async function deleteComment(commentId, blogId) {
         return;
     }
     
+    console.log('🗑️ Eliminando comentario:', commentId);
+    
     try {
-        const API_URL = getAPIUrl();
+        const API_URL = 'https://backend-vjgm.onrender.com/api';
         const response = await fetch(`${API_URL}/comentariosBlog/${commentId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
         
         if (!response.ok) {
@@ -291,6 +296,7 @@ async function deleteComment(commentId, blogId) {
             throw new Error(errorData.error || 'Error al eliminar comentario');
         }
         
+        console.log('✅ Comentario eliminado exitosamente');
         await loadComments(blogId);
         showNotification('✓ Comentario eliminado', 'success');
         
